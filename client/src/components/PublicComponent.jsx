@@ -10,12 +10,11 @@ export default function PublicComponent() {
   const { state } = useAuthContext();
   const { getAuthFromLocal } = useAuthActions();
 
-  const isAuthenticated =
-    state?.accessToken && state?.refreshToken && state?.email;
+  const isAuthenticated = state?.accessToken && state?.email;
 
-  useEffect(() => {
+  /*useEffect(() => {
     getAuthFromLocal();
-  }, []);
+    }, [getAuthFromLocal]);*/
 
   useEffect(() => {
     if (isAuthenticated) {

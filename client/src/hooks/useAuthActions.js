@@ -1,6 +1,9 @@
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import {
+  getLoginStart,
+  getLoginSuccess,
+  getLoginError,
   loginStart,
   loginSuccess,
   loginError,
@@ -8,16 +11,31 @@ import {
   verifySuccess,
   verifyError,
   getAuthFromLocalStorage,
+  getVerifyStart,
+  getVerifyError,
+  getVerifySuccess,
 } from "../state/actions/authActions";
 import { useAxios } from "./useAxios";
 
 const ACCESS_TOKEN_KEY = "e-commerce-access-token-key";
-const REFRESH_TOKEN_KEY = "e-commerce-refresh-token-key";
 const EMAIL_KEY = "e-commerce-email-key";
 
 export function useAuthActions() {
   const { dispatch } = useContext(AuthContext);
   const { sendRequest } = useAxios();
+
+  async function getLogin() {
+    dispatch(getLoginStart());
+
+    const { data, error } = await sendRequest("GET", null, "/api/auth/login");
+
+    if (error) {
+      dispatch(getLoginError(error));
+      return;
+    }
+
+    dispatch(getLoginSuccess(data.data));
+  }
 
   async function loginUser({ email, password }) {
     dispatch(loginStart());
@@ -42,6 +60,23 @@ export function useAuthActions() {
     );
   }
 
+  async function getVerifyEmail() {
+    dispatch(getVerifyStart());
+
+    const { data, error } = await sendRequest(
+      "GET",
+      null,
+      "/api/auth/verify-email",
+    );
+
+    if (error) {
+      dispatch(getVerifyError(error));
+      return;
+    }
+
+    dispatch(getVerifySuccess(data.data));
+  }
+
   async function verifyUser({ email, verificationCode }) {
     dispatch(verifyStart());
     const { data, error } = await sendRequest(
@@ -56,12 +91,10 @@ export function useAuthActions() {
     }
 
     localStorage.setItem(ACCESS_TOKEN_KEY, data.data.accessToken);
-    localStorage.setItem(REFRESH_TOKEN_KEY, data.data.refreshToken);
 
     dispatch(
       verifySuccess({
         accessToken: data.data.accessToken,
-        refreshToken: data.data.refreshToken,
       }),
     );
   }
@@ -70,19 +103,17 @@ export function useAuthActions() {
     const userAuthCredentials = {
       email: localStorage.getItem(EMAIL_KEY),
       accessToken: localStorage.getItem(ACCESS_TOKEN_KEY),
-      refreshToken: localStorage.getItem(REFRESH_TOKEN_KEY),
     };
 
     if (
       !userAuthCredentials ||
       !userAuthCredentials.email ||
-      !userAuthCredentials.accessToken ||
-      !userAuthCredentials.refreshToken
+      !userAuthCredentials.accessToken
     )
       return;
 
     dispatch(getAuthFromLocalStorage(userAuthCredentials));
   }
 
-  return { loginUser, verifyUser, getAuthFromLocal };
+  return { getLogin, loginUser, getVerifyEmail, verifyUser, getAuthFromLocal };
 }

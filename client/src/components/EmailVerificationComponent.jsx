@@ -7,7 +7,7 @@ import styles from "../styles/EmailVerificationComponent.module.css";
 export default function EmailVerificationComponent() {
   const navigate = useNavigate();
   const { state } = useAuthContext();
-  const { verifyUser } = useAuthActions();
+  const { getVerifyEmail, verifyUser } = useAuthActions();
   const [verificationCode, setVerificationCode] = useState(null);
 
   async function handleEmailVerificationFormSubmit(e) {
@@ -33,22 +33,31 @@ export default function EmailVerificationComponent() {
     navigate("/auth/login", { replace: true });
   }, [state?.email, navigate]);
 
+  useEffect(() => {
+    if (state?.verifyEmailData) return;
+
+    getVerifyEmail();
+  }, [state?.verifyEmailData]);
+
+  const verificationCodeInputField =
+    state?.verifyEmailData?.inputFields["verificationCode"] || {};
+
   return (
     <form
       className={styles.emailVerificationForm}
       onSubmit={(e) => handleEmailVerificationFormSubmit(e)}
     >
       <h1 className={styles.emailVerificationFormMainHeader}>
-        Verify your Email
+        {state?.verifyEmailData?.emailVerificationFormMainHeader}
       </h1>
       <p className={styles.emailVerificationFormSubHeader}>
-        {`An email has been sent to ${state?.email}`}
+        {`${state?.verifyEmailData?.emailVerificationFormSubHeader} ${state?.email}`}
       </p>
       <input
         className={styles.emailVerificationFormInput}
-        type="text"
-        minLength={6}
-        maxLength={6}
+        type={verificationCodeInputField.type}
+        minLength={verificationCodeInputField.verificationCodeLength}
+        maxLength={verificationCodeInputField.verificationCodeLength}
         onChange={(e) => setVerificationCode(e.target.value)}
       />
       <button
@@ -56,7 +65,7 @@ export default function EmailVerificationComponent() {
         type="submit"
         disabled={state?.loading}
       >
-        Verify
+        {state?.verifyEmailData?.emailVerificationFormButtonText}
       </button>
     </form>
   );

@@ -5,7 +5,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 import styles from "../styles/LoginComponent.module.css";
 
 export default function LoginComponent() {
-  const { loginUser } = useAuthActions();
+  const { getLogin, loginUser } = useAuthActions();
   const [formState, setFormState] = useState({
     email: null,
     password: null,
@@ -31,40 +31,52 @@ export default function LoginComponent() {
   }
 
   useEffect(() => {
+    console.log("state?.email", state?.email);
     if (!state?.email) return;
 
     navigate("/auth/verify-email");
   }, [state?.email, navigate]);
+
+  useEffect(() => {
+    if (state?.loginData) return;
+
+    getLogin();
+  }, [state?.loginData]);
+
+  const emailInputField = state?.loginData?.inputFields["email"] || {};
+  const passwordInputField = state?.loginData?.inputFields["password"] || {};
 
   return (
     <form
       className={styles.loginForm}
       onSubmit={(e) => handleLoginFormSubmit(e)}
     >
-      <h1 className={styles.loginFormMainHeader}>Welcome back</h1>
+      <h1 className={styles.loginFormMainHeader}>
+        {state?.loginData?.loginFormMainHeader}
+      </h1>
       <p className={styles.loginFormSubHeader}>
-        Enter your credentials to continue
+        {state?.loginData?.loginFormSubHeader}
       </p>
       <label className={styles.loginFormLabel} htmlFor="email">
-        Email
+        {emailInputField.label}
       </label>
       <input
         className={styles.loginFormInput}
-        required={true}
+        required={emailInputField.required}
         id="email"
-        type="email"
-        placeholder="jane.doe@example.com"
+        type={emailInputField.type}
+        placeholder={emailInputField.placeholder}
         onChange={(e) => handleLoginFormInput(e.target.value, "email")}
       />
       <label className={styles.loginFormLabel} htmlFor="password">
-        Password
+        {passwordInputField.label}
       </label>
       <input
         className={styles.loginFormInput}
-        required={true}
+        required={passwordInputField.required}
         id="password"
-        type="password"
-        placeholder="Enter your password"
+        type={passwordInputField.type}
+        placeholder={passwordInputField.placeholder}
         onChange={(e) => handleLoginFormInput(e.target.value, "password")}
       />
       <button
@@ -72,7 +84,7 @@ export default function LoginComponent() {
         type="submit"
         disabled={state?.loading}
       >
-        Sign in
+        {state?.loginData?.loginFormButtonText}
       </button>
     </form>
   );
