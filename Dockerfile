@@ -49,7 +49,5 @@ COPY --from=builder /app/client/dist ./client/dist
 # 3. Copy package.json (helpful for metadata/scripts)
 COPY --from=builder /app/server/package.json ./server/package.json
 
-EXPOSE 3001
-
 # Run the server from its dist folder
 CMD ["node", "server/dist/main"]
