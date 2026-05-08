@@ -1,0 +1,14 @@
+name: e-commerce-app
+services:
+  e-commerce-app:
+    build:
+      context: .
+    container_name: e-commerce-app
+    env_file: "./.env"
+    ports:
+      - "${PORT}:${PORT}"
+    networks:
+      - e-commerce-network
+networks:
+  e-commerce-network:
+    external: true

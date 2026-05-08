@@ -1,0 +1,55 @@
+.loginForm {
+    width: clamp(300px, 50%, 500px);
+    padding: 1.25rem 1.25rem;
+    border: 0.5px solid lightgray;
+    border-radius: 8px;
+}
+
+.loginFormMainHeader {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.loginFormSubHeader {
+    color: gray;
+    margin: 0.25rem 0 1rem 0;
+}
+
+.loginFormLabel {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.loginFormInput {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    font-size: 0.925rem;
+    padding: 0.875rem;
+    border: 0.5px solid mediumseagreen;
+    border-radius: 8px;
+}
+
+.loginFormInput:hover {
+    border: 0.5px solid seagreen;
+}
+
+.loginFormButton {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    color: floralwhite;
+    background: mediumseagreen;
+}
+
+.loginFormButton:hover {
+    background: seagreen;
+}
