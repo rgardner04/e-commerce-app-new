@@ -3,6 +3,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 import { useAuthActions } from "../hooks/useAuthActions";
 import { useNavigate } from "react-router";
 import styles from "../styles/EmailVerificationComponent.module.css";
+import { ShoppingCart } from "lucide-react";
 
 export default function EmailVerificationComponent() {
   const navigate = useNavigate();
@@ -43,30 +44,36 @@ export default function EmailVerificationComponent() {
     state?.verifyEmailData?.inputFields["verificationCode"] || {};
 
   return (
-    <form
-      className={styles.emailVerificationForm}
-      onSubmit={(e) => handleEmailVerificationFormSubmit(e)}
-    >
-      <h1 className={styles.emailVerificationFormMainHeader}>
-        {state?.verifyEmailData?.emailVerificationFormMainHeader}
-      </h1>
-      <p className={styles.emailVerificationFormSubHeader}>
-        {`${state?.verifyEmailData?.emailVerificationFormSubHeader} ${state?.email}`}
-      </p>
-      <input
-        className={styles.emailVerificationFormInput}
-        type={verificationCodeInputField.type}
-        minLength={verificationCodeInputField.verificationCodeLength}
-        maxLength={verificationCodeInputField.verificationCodeLength}
-        onChange={(e) => setVerificationCode(e.target.value)}
-      />
-      <button
-        className={styles.emailVerificationFormButton}
-        type="submit"
-        disabled={state?.loading}
+    <>
+      <div className={styles.brandContainer}>
+        <ShoppingCart className={styles.brandIcon} />
+        <h1 className={styles.brandName}>shoplify</h1>
+      </div>
+      <form
+        className={styles.emailVerificationForm}
+        onSubmit={(e) => handleEmailVerificationFormSubmit(e)}
       >
-        {state?.verifyEmailData?.emailVerificationFormButtonText}
-      </button>
-    </form>
+        <h1 className={styles.emailVerificationFormMainHeader}>
+          {state?.verifyEmailData?.emailVerificationFormMainHeader}
+        </h1>
+        <p className={styles.emailVerificationFormSubHeader}>
+          {`${state?.verifyEmailData?.emailVerificationFormSubHeader} ${state?.email}`}
+        </p>
+        <input
+          className={styles.emailVerificationFormInput}
+          type={verificationCodeInputField.type}
+          minLength={verificationCodeInputField.verificationCodeLength}
+          maxLength={verificationCodeInputField.verificationCodeLength}
+          onChange={(e) => setVerificationCode(e.target.value)}
+        />
+        <button
+          className={styles.emailVerificationFormButton}
+          type="submit"
+          disabled={state?.loading}
+        >
+          {state?.verifyEmailData?.emailVerificationFormButtonText}
+        </button>
+      </form>
+    </>
   );
 }

@@ -1,0 +1,89 @@
+.container {
+    height: 100px;
+    width: 100%;
+    padding: 1rem 2rem;
+    position: sticky;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid seagreen;
+}
+
+.brandContainer {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    cursor: pointer;
+}
+
+.brandIcon {
+    color: mediumseagreen;
+}
+
+.brandName {
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    color: mediumseagreen;
+    margin: 0;
+}
+
+.navContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navItems {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+.navItem,
+.navItemSelected {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    width: 80px;
+}
+
+.navItemSelected {
+    background-color: mediumseagreen;
+    .navItemButton,
+    .navItemIcon {
+        color: floralwhite;
+    }
+}
+
+.navItemButton {
+    font-size: 1rem;
+    color: mediumseagreen;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.navItemIcon {
+    width: 20px;
+    height: 20px;
+    color: seagreen;
+}
+
+.navItem:hover {
+    background-color: mediumseagreen;
+    .navItemButton,
+    .navItemIcon {
+        color: floralwhite;
+    }
+}
