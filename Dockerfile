@@ -30,7 +30,7 @@ RUN cd server && npm run build
 RUN cd client && npm run build
 
 # Remove development dependencies from server to save space
-#RUN cd server && npm prune --omit=dev
+RUN cd server && npm prune --omit=dev
 
 
 # --- STAGE 3: Runner ---
