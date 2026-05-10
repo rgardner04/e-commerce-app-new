@@ -87,3 +87,55 @@
         color: floralwhite;
     }
 }
+
+.navMenuButtonCollapsed,
+.navMenuButtonExpanded {
+    background-color: transparent;
+    border: none;
+}
+
+.navMenuIcon {
+    color: mediumseagreen;
+}
+
+.navMenuButtonExpanded {
+    .navMenuIcon {
+        color: seagreen;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0.5rem 1rem;
+        height: 80px;
+    }
+
+    .navItems {
+        position: absolute;
+        top: 80px;
+        right: 0;
+        flex-direction: column;
+        z-index: 999;
+        border-left: 1px solid mediumseagreen;
+        border-right: 1px solid mediumseagreen;
+        border-bottom: 1px solid mediumseagreen;
+        gap: 0;
+    }
+
+    .navItem,
+    .navItemSelected {
+        flex-direction: row-reverse;
+        justify-content: center;
+        min-width: 100px;
+        border-radius: 0;
+        padding: 1rem;
+    }
+
+    .navItemSelected {
+        background-color: mediumseagreen;
+        .navItemButton,
+        .navItemIcon {
+            color: floralwhite;
+        }
+    }
+}
