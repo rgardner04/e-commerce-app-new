@@ -72,3 +72,11 @@
 .loginFormButton:hover {
     background: seagreen;
 }
+
+@media (max-width: 496px) {
+    .loginForm {
+        width: 100%;
+        box-sizing: border-box;
+        border: none;
+    }
+}

@@ -69,19 +69,6 @@ export default function HeaderComponent() {
             <li>
               <div
                 className={
-                  selectedNavItem === navItems.ACCOUNT
-                    ? styles.navItemSelected
-                    : styles.navItem
-                }
-                onClick={() => handleSelectNavItem(navItems.ACCOUNT)}
-              >
-                <button className={styles.navItemButton}>Account</button>
-                <UserIcon className={styles.navItemIcon} />
-              </div>
-            </li>
-            <li>
-              <div
-                className={
                   selectedNavItem === navItems.PRODUCTS
                     ? styles.navItemSelected
                     : styles.navItem
@@ -90,6 +77,19 @@ export default function HeaderComponent() {
               >
                 <button className={styles.navItemButton}>Products</button>
                 <ShoppingBagIcon className={styles.navItemIcon} />
+              </div>
+            </li>
+            <li>
+              <div
+                className={
+                  selectedNavItem === navItems.ACCOUNT
+                    ? styles.navItemSelected
+                    : styles.navItem
+                }
+                onClick={() => handleSelectNavItem(navItems.ACCOUNT)}
+              >
+                <button className={styles.navItemButton}>Account</button>
+                <UserIcon className={styles.navItemIcon} />
               </div>
             </li>
             {width <= MAX_WIDTH_FOR_NAV_MENU && showExpandedNav && (

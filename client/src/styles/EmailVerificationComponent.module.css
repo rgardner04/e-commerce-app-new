@@ -68,3 +68,11 @@
 .emailVerificationFormButton:hover {
     background: seagreen;
 }
+
+@media (max-width: 496px) {
+    .emailVerificationForm {
+        width: 100%;
+        box-sizing: border-box;
+        border: none;
+    }
+}
