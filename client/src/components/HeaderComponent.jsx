@@ -16,7 +16,6 @@ const navItems = {
   LOGOUT: "LOGOUT",
 };
 
-const MIN_WIDTH_FOR_NAV = 769;
 const MAX_WIDTH_FOR_NAV_MENU = 768;
 
 export default function HeaderComponent() {
@@ -51,7 +50,7 @@ export default function HeaderComponent() {
           <ShoppingCart className={styles.brandIcon} />
           <h1 className={styles.brandName}>shoplify</h1>
         </div>
-        {(width >= MIN_WIDTH_FOR_NAV || showExpandedNav) && (
+        {(width > MAX_WIDTH_FOR_NAV_MENU || showExpandedNav) && (
           <ul className={styles.navItems}>
             <li>
               <div
@@ -109,18 +108,22 @@ export default function HeaderComponent() {
             )}
           </ul>
         )}
-        {width >= MIN_WIDTH_FOR_NAV && (
-          <div
-            className={
-              selectedNavItem === navItems.LOGOUT
-                ? styles.navItemSelected
-                : styles.navItem
-            }
-            onClick={() => handleSelectNavItem(navItems.LOGOUT)}
-          >
-            <button className={styles.navItemButton}>Logout</button>
-            <LogOutIcon className={styles.navItemIcon} />
-          </div>
+        {width > MAX_WIDTH_FOR_NAV_MENU && (
+          <ul className={styles.navItems}>
+            <li>
+              <div
+                className={
+                  selectedNavItem === navItems.LOGOUT
+                    ? styles.navItemSelected
+                    : styles.navItem
+                }
+                onClick={() => handleSelectNavItem(navItems.LOGOUT)}
+              >
+                <button className={styles.navItemButton}>Logout</button>
+                <LogOutIcon className={styles.navItemIcon} />
+              </div>
+            </li>
+          </ul>
         )}
         {width <= MAX_WIDTH_FOR_NAV_MENU && (
           <button
