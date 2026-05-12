@@ -30,7 +30,12 @@ export function useAuthActions() {
     const { data, error } = await sendRequest("GET", null, "/api/auth/login");
 
     if (error) {
-      dispatch(getLoginError(error));
+      dispatch(
+        getLoginError(
+          error?.response?.data ||
+            "An error occurred while fetching login data",
+        ),
+      );
       return;
     }
 
@@ -47,7 +52,11 @@ export function useAuthActions() {
     );
 
     if (error) {
-      dispatch(loginError(error));
+      dispatch(
+        loginError(
+          error?.response?.data?.message || "An error occurred during login",
+        ),
+      );
       return;
     }
 
@@ -70,7 +79,12 @@ export function useAuthActions() {
     );
 
     if (error) {
-      dispatch(getVerifyError(error));
+      dispatch(
+        getVerifyError(
+          error?.response?.data?.message ||
+            "An error occurred while fetching verification data",
+        ),
+      );
       return;
     }
 
@@ -86,7 +100,12 @@ export function useAuthActions() {
     );
 
     if (error) {
-      dispatch(verifyError(error));
+      dispatch(
+        verifyError(
+          error?.response?.data?.message ||
+            "An error occurred while verifying your email",
+        ),
+      );
       return;
     }
 

@@ -66,6 +66,11 @@ export default function EmailVerificationComponent() {
           maxLength={verificationCodeInputField.verificationCodeLength}
           onChange={(e) => setVerificationCode(e.target.value)}
         />
+        {state?.error && (
+          <p className={styles.errorMessage}>
+            {state?.error || "An error occurred during email verification"}
+          </p>
+        )}
         <button
           className={styles.emailVerificationFormButton}
           type="submit"

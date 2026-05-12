@@ -32,10 +32,10 @@ export default function LoginComponent() {
   }
 
   useEffect(() => {
-    if (!state?.email) return;
+    if (!state?.email || state?.error) return;
 
     navigate("/auth/verify-email");
-  }, [state?.email, navigate]);
+  }, [state?.email, state?.error, navigate]);
 
   useEffect(() => {
     if (state?.loginData) return;
@@ -84,6 +84,11 @@ export default function LoginComponent() {
           placeholder={passwordInputField.placeholder}
           onChange={(e) => handleLoginFormInput(e.target.value, "password")}
         />
+        {state?.error && (
+          <p className={styles.errorMessage}>
+            {state?.error || "An error occurred during login"}
+          </p>
+        )}
         <button
           className={styles.loginFormButton}
           type="submit"
